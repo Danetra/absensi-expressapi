@@ -1,6 +1,6 @@
 const express = require("express");
 const client = require("./../postgree");
-// const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
 const getUsers = async (req, res) => {
   client.query(`SELECT * FROM users order by id ASC`, (err, result) => {
