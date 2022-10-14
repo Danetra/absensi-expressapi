@@ -1,6 +1,28 @@
 const express = require("express");
 const client = require("./../postgree");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+
+const loginUsers = async (req, res) => {
+  try {
+    // console.log(req.body);
+    const { email, password } = req.body;
+    // const user = checkEmail(email);
+    const user = await client.query(
+      `SELECT * from users where email = $1 and password = $2`,
+      [email, password]
+    );
+    // console.log(user.rows[0].password);
+    if (user.rows.length === 0) {
+      return res
+        .status(401)
+        .json({ error: "Email or Password is Incorrect", code: 401 });
+    }
+    return res.status(200).json({ message: "Login Success" });
+  } catch (error) {
+    throw error;
+  }
+};
 
 const getUsers = async (req, res) => {
   client.query(`SELECT * FROM users order by id ASC`, (err, result) => {
@@ -60,4 +82,11 @@ const deleteUsers = (req, res) => {
   });
 };
 
-module.exports = { getUsers, postUsers, updateUsers, deleteUsers };
+// const checkEmail = async (email) => {
+//   await client.query(`SELECT * from users where email = $1`, [email]);
+// };
+const checkPassword = async (password) => {
+  await client.query(`SELECT * from users where password = $1`, [password]);
+};
+
+module.exports = { loginUsers, getUsers, postUsers, updateUsers, deleteUsers };

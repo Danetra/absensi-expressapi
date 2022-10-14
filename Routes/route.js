@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const client = require("./../postgree");
 const {
+  loginUsers,
   getUsers,
   postUsers,
   updateUsers,
@@ -11,6 +12,8 @@ const { postPresence } = require("../Controllers/epresence");
 router.get("/", async (res) => {
   res.status(200).json("API Latihan Node JS");
 });
+
+router.post("/login", loginUsers);
 
 // user routes
 router.get("/users", getUsers);
