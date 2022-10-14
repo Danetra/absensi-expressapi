@@ -1,7 +1,6 @@
 const express = require("express");
 const client = require("./../postgree");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
 
 const loginUsers = async (req, res) => {
   try {
