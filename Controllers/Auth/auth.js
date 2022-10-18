@@ -60,7 +60,7 @@ const generateTokenJWT = (user, insert, time = 60 * 60) => {
       id: user.id,
       nama: user.nama,
     },
-    jwt_key
+    jwt_key,
     {
       expiresIn: time,
     }
