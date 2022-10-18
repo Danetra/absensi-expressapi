@@ -1,19 +1,20 @@
 const router = require("express").Router();
 const client = require("./../postgree");
 const {
-  loginUsers,
   getUsers,
   postUsers,
   updateUsers,
   deleteUsers,
-} = require("../Controllers/users");
-const { postPresence } = require("../Controllers/epresence");
+} = require("../Controllers/Users/users");
+const { loginUsers, signUp } = require("../Controllers/Auth/auth");
+const { postPresence } = require("../Controllers/Presence/epresence");
 
-router.get("/", async (res) => {
+router.get("/", async (req, res) => {
   res.status(200).json("API Latihan Node JS");
 });
 
 router.post("/login", loginUsers);
+router.post("/register", signUp);
 
 // user routes
 router.get("/users", getUsers);
